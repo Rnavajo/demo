@@ -1,0 +1,68 @@
+《如何在SpringBoot中使用mybatis？》
+
+1. mybatis是一款备受欢迎的Java持久层框架，该demo演示SpringBoot项目如何通过mybatis与数据库进行交互
+
+2. 新建SpringBoot项目，在pom.xml添加mybatis、web和数据库连接依赖
+
+    <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter</artifactId>
+        <version>2.1.1</version>
+    </dependency>
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+
+    <!-- 还需要添加web依赖，不然SpringBoot会无法启动 -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+3. 在application.yml添加项目启动端口、数据库连接信息、mapper文件扫描位置
+
+    # 项目启动端口
+    server:
+        port : 8088
+
+    # 指定mapper文件位置，供mybatis扫描
+    mybatis:
+    mapper-locations: classpath:mapper/*.xml
+
+    # 数据库连接信息
+    spring:
+    datasource:
+        username: root
+        password: root
+        url: jdbc:mysql://localhost:3306/demo?autoReconnect=true&autoReconnectForPools=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+4. 分层编写代码：pojo层、dao层、service层、controller层
+
+    pojo：Student.java
+    dao：StudentDao.java
+    service：StudentService.java
+    controller：StudentController.java
+
+    快捷导入依赖包：Shift + Alt + O
+
+5. 编写mapper文件，实现dao对应的方法
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <mapper namespace="fun.navajo.demo.dao.StudentDao">
+
+        <resultMap id="studentMap" type="fun.navajo.demo.pojo.Student">
+            <result column="id" jdbcType="INTEGER" property="id" />
+            <result column="name" jdbcType="VARCHAR" property="name" />
+            <result column="age" jdbcType="INTEGER" property="age" />
+        </resultMap>
+
+        <select id="queryAllStudents" resultMap="studentMap">
+            SELECT id, name, age FROM student;
+        </select>
+
+    </mapper>

@@ -1,0 +1,20 @@
+# 项目启动端口
+server:
+    port : 8090
+
+# 指定mapper文件位置，供mybatis扫描
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+# 数据库连接信息
+spring:
+  datasource:
+    username: root
+    password: ljw624534029
+    url: jdbc:mysql://localhost:3306/demo?autoReconnect=true&autoReconnectForPools=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# 分级输出SQL执行语句
+logging:
+  level:
+    fun.navajo.demo.dao : debug
