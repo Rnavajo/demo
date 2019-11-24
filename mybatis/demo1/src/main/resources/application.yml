@@ -10,7 +10,7 @@ mybatis:
 spring:
   datasource:
     username: root
-    password: ljw624534029
+    password: root
     url: jdbc:mysql://localhost:3306/demo?autoReconnect=true&autoReconnectForPools=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
 
